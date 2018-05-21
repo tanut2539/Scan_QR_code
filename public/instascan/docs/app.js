@@ -7,7 +7,6 @@ var app = new Vue({
     scans: []
   },
   mounted: function () {
-
     var config = {
       apiKey: "AIzaSyAL9f4Z8jXGL9DIGjpaOWcv4Ivwi45zoOY",
       authDomain: "we-connect-test-7b828.firebaseapp.com",
@@ -26,7 +25,7 @@ var app = new Vue({
     });
     
     var self = this;
-    self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 3 });
+    self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror: false, scanPeriod: 3 });
     self.scanner.addListener('scan', function (content, image) {
       var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
       console.log(userid)

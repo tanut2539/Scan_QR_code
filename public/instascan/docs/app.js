@@ -27,6 +27,8 @@ var app = new Vue({
     var self = this;
     self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror: false, scanPeriod: 3 });
     self.scanner.addListener('scan', function (content, image) {
+      console.log(content)
+      var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
       var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
       console.log(userid)
       self.insertToFirebase(userid)
@@ -66,7 +68,7 @@ var app = new Vue({
       firebase.database()
       .ref('eventRegister/registered/courseA/'+key+'/' +data)
       .set(dataSet);
-      alert("Seve checkin ID:"+name+ " success")
+      alert("Seve checkin ID:"+data+ " success")
     }
   }
 });

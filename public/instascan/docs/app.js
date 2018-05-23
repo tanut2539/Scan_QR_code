@@ -29,7 +29,7 @@ var app = new Vue({
     self.scanner.addListener('scan', function (content, image) {
       console.log(content)
       var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
-      var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
+      
       console.log(userid)
       self.insertToFirebase(userid)
       self.scans.unshift({ date: +(Date.now()),IDUser: userid});

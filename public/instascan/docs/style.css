@@ -10,7 +10,7 @@ body, html {
   align-items: stretch;
   justify-content: stretch;
   justify-content: space-between;
-  /* height: 100%; */
+  height: 100%;
   width: 100%;
 }
 .sidebar {
@@ -78,5 +78,11 @@ body, html {
   justify-content: center;
   display: flex;
   width: 100%;
+  height: 100%;
   overflow: hidden;
+}
+
+#preview {
+  width: 80%;
+  height: 80%;
 }

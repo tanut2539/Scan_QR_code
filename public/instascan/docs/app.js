@@ -25,13 +25,20 @@ var app = new Vue({
     });
     
     var self = this;
-    self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror: false, scanPeriod: 3 });
+    self.scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror: false, scanPeriod: 1 });
     self.scanner.addListener('scan', function (content, image) {
       console.log(content)
       var userid = (String(content).match(/USERID:\d{0,100}/)[0].replace("USERID:",""));
-      
       console.log(userid)
-      self.insertToFirebase(userid)
+      var nameUser = (String(content).match(/NAMEEN:\w+( )?\w+/)[0].replace("NAMEEN:",""));
+      console.log("name user =",nameUser)
+      if (self.insertToFirebase(userid)) {
+        alert("Check in success\nWORKER ID: "+ userid+"\nNAME: "+nameUser);
+      }else {
+        alert("!!!Check in False!!!\n Please try again.");
+      }
+
+
       self.scans.unshift({ date: +(Date.now()),IDUser: userid});
     });
     Instascan.Camera.getCameras().then(function (cameras) {
@@ -65,10 +72,13 @@ var app = new Vue({
         checkln: millseconds
       }
 
-      firebase.database()
+       if (firebase.database()
       .ref('eventRegister/registered/courseA/'+key+'/' +data)
-      .set(dataSet);
-      alert("Seve checkin ID:"+data+ " success")
+      .set(dataSet)){
+        return true
+      }else {
+        return false
+      };
     }
   }
 });
